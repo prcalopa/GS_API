@@ -1,24 +1,33 @@
-import os,sys
+import os
+import sys
+
+
 if __name__=='__main__':
-	sys.path.insert(1,os.path.abspath(os.path.join(__file__,os.pardir,os.pardir,os.pardir)))
+	sys.path.insert(1, os.path.abspath(os.path.join(__file__,
+                                                    os.pardir,
+                                                    os.pardir,
+                                                    os.pardir)))
+
 
 from gsapi import GSDescriptor
+# import math
 
-import math
 
-class GSDescriptorSyncopation(GSDescriptor):
-	""" computes the syncopation value from a pattern : 
+class GSDSyncopation(GSDescriptor):
 	"""
-	
+	Computes the syncopation value from a pattern.
+	"""
 	def __init__(self):
 		GSDescriptor.__init__(self)
 		self.weights = []
 		self.duration  = 16
-		self.noteGrid = []
+		self.note_grid = []
 
-	def getDescriptorForPattern(self,pattern):
-		if(pattern.duration!=self.duration):
-			print "Syncopation inputing a pattern of duration %f but expected is %f"%(pattern.duration,self.duration)
+
+	def get_descriptor_for_pattern(self,pattern):
+
+		if(pattern.duration != self.duration):
+			print "Syncopation inputing a pattern of duration %f but expected is %f" % (pattern.duration, self.duration)
 			pattern = pattern.getPatternForTimeSlice(0,self.duration)
 		if not self.weights :
 			self.buildSyncopationWeight(pattern.duration)
@@ -27,7 +36,7 @@ class GSDescriptorSyncopation(GSDescriptor):
 		self.buildBinarizedGrid(pattern)
 		for t in range(self.duration):
 			nextT = (t+1)%self.duration
-			if  self.noteGrid[t] and not self.noteGrid[nextT] :
+			if  self.note_grid[t] and not self.note_grid[nextT] :
 				syncopation+=abs(self.weights[nextT] - self.weights[t])
 
 		return syncopation
@@ -48,9 +57,9 @@ class GSDescriptorSyncopation(GSDescriptor):
 			stepWidth = int(duration*1.0/depth)
 
 	def buildBinarizedGrid(self,pattern):
-		self.noteGrid = [0] * self.duration
+		self.note_grid = [0] * self.duration
 		for i in range(self.duration):
-			self.noteGrid[i] = len(pattern.getActiveEventsAtTime(i))
+			self.note_grid[i] = len(pattern.getActiveEventsAtTime(i))
 
 
 

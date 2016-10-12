@@ -131,19 +131,16 @@ def generateStyleIfNeeded(forceRebuild = False,forceParamUpdate = False,loadFrom
 			
 	if forceRebuild:
 		print "startGenerating for "+searchPath+" : "+str(glob.glob(searchPath))
-		patterns = dataSet.patterns#gsapi.GSIO.fromMidiCollection(searchPath,NoteToTagsMap=midiMap,TagsFromTrackNameEvents=False,desiredLength = int(loopDuration.value))
+		patterns = dataSet.patterns#gsapi.GSIO.from_midi_collection(searchPath,NoteToTagsMap=midiMap,TagsFromTrackNameEvents=False,desiredLength = int(loopDuration.value))
 		
 
 	if forceRebuild or forceParamUpdate :
 		style = GSMarkovStyle(order=numSteps.value/(loopDuration.value+1),numSteps=int(numSteps.value),loopDuration=int(loopDuration.value))
 		patterns = []
 		for p in dataSet.patterns:
-			patterns += p.splitInEqualLengthPatterns(loopDuration.value);
+			patterns += p.split_in_equal_length_patterns(loopDuration.value);
 		style.generateStyle(patterns)
 
-
-		
-		
 
 def saveStyle():
 	style.saveToJSON(styleSavingPath)
@@ -175,7 +172,4 @@ if __name__ =='__main__':
 	numSteps.value = 32
 	generatePattern()
 	# params =  interface.getAllParameters()
-	
-	
-	
 	# patt.printEvents()

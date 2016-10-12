@@ -33,7 +33,7 @@ class GSDensityDrumSpace():
 	def getFeatureSpace(self,pattern):
 		res = {}
 		for d in self.descriptors:
-			res[d] = self.descriptors[d].getDescriptorForPattern(pattern)
+			res[d] = self.descriptors[d].get_descriptor_for_pattern(pattern)
 		return res 
 
 

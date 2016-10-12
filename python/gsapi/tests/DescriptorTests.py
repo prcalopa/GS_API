@@ -29,10 +29,10 @@ class DescriptorTests(GSPatternTestUtils):
 		descriptor = GSDescriptorSyncopation();
 		for p in self.dataset.patterns:
 			# p = p.getPatternWithTags(p.getAllTags()[0])
-			sliced = p.splitInEqualLengthPatterns(descriptor.duration)
+			sliced = p.split_in_equal_length_patterns(descriptor.duration)
 			print p
 			for s in sliced:
-				syncopation =  descriptor.getDescriptorForPattern(s);
+				syncopation =  descriptor.get_descriptor_for_pattern(s);
 				
 				self.assertTrue(syncopation>=0 , "syncopation value not valid : %f"%(syncopation))
 

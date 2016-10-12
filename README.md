@@ -8,10 +8,10 @@ Overview
 ------
 The GS_API provides Python/C++ classes and interface for dealing with musical data. The main features are:
 
-* flexible input/output from/to JSON/MIDI
+* flexible input/output from/to JSON/MIDI.
 * Rhythm generation, both agnostic and based on styles.
-* Style and music-theoretical based harmony progression generation.
-* More to come.
+* Style and music-theoretical based chord progression generation.
+* and much more yet to come...
 
 
 Using the Library
@@ -32,7 +32,6 @@ python setup.py install
 ```
 
 *All modules are documented so typing help(GSPattern) provides relevant information.*
-
 
 
 * naive example:
@@ -76,14 +75,13 @@ newPattern = markovStyle.generatePattern()
 ```
 
 
-
 API Philosophies
 ------
 **JSON and MIDI**
 
-we encourage use of JSON to be able to work with consistent and reusable datasets, as midi files tends to have different MIDI mapping , structures, or even suspicious file format implementations.
-Thus we provide flexible MIDI input module *GSIO* for tagging events with respect to their pitch/channel/trackName
-Note to tag mapping is reppresented by a dictionnary where key represent a tag and value is a rule such tag has to validate
+we encourage use of JSON to be able to work with consistent and reusable datasets, as midi files tends to have different MIDI mapping, structures, or even suspicious file format implementations.
+Thus we provide flexible MIDI input module *GSIO* for tagging events with respect to their pitch/channel/trackName.
+Note that tag mapping is represented by a dictionary where key represent a tag and value is a rule such tag has to validate
 * rules are either list or single *condition* that are OR'ed
 * each condition is either a tuple with expected pitch value and channel value or an integer representing expected pitch value
 
@@ -94,13 +92,7 @@ NoteToTagsMap = {"Kick":30,"Snare":(32,4),"ClosedHihat":[(33,'*'),45]}
 listOfGSPatterns = GSIO.fromMidiCollection(midiGlobPath,NoteToTagsMap)
 ```
 
-
 will return a list of *GSPattern* with event being tagged :
 * 'Kick' if MIDI pitch is 30 and whatever channel
 * 'Snare' if MIDI pitch is 32 and channel is 4
 * 'ClosedHihat' if MIDI pitch is 33 on whatever channel or MIDI pitch is 45 on whatever channel
-
-
-
-
-

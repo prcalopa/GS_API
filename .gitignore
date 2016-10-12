@@ -10,3 +10,6 @@ dist/
 **/doc/_build/*
 **/doc/gh-pages/*
 DBStyle.json
+*.xml
+.idea/GS_API.iml
+.idea/

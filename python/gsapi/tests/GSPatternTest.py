@@ -25,7 +25,7 @@ class GSPatternTest(GSPatternTestUtils):
 			self.checkPatternValid(p,msg='import Pattern %s failed'%p.name)
 			p = p.getPatternForTimeSlice(0,4)
 			self.checkPatternValid(p,msg='slicing pattern failed')
-			ps = p.splitInEqualLengthPatterns(4,copy=False)
+			ps = p.split_in_equal_length_patterns(4, copy=False)
 			for p in ps:
 				self.checkPatternValid(p,msg='spit in equalLength failed')
 

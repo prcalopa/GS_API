@@ -1,35 +1,38 @@
 import logging
 
-USE_COLOR_OUTPUT = False
 
+USE_COLOR_OUTPUT = False
 BLACK, RED, GREEN, YELLOW, BLUE, MAGENTA, CYAN, WHITE = range(8)
 
-#The background is set with 40 plus the number of the color, and the foreground with 30
+COLORS = {'WARNING': YELLOW,
+          'INFO': WHITE,
+          'DEBUG': BLUE,
+          'CRITICAL': YELLOW,
+          'ERROR': RED}
 
-#These are the sequences need to get colored ouput
+# The background is set with 40 plus the number of the color.
+# The foreground is set with 30.
+# These are the sequences need to get colored ouput:
 RESET_SEQ = "\033[0m"
 COLOR_SEQ = "\033[1;%dm"
-BOLD_SEQ = "\033[1m"
+BOLD_SEQ  = "\033[1m"
 
-def formatter_message(message, use_color = USE_COLOR_OUTPUT):
+
+def formatter_message(message, use_color=USE_COLOR_OUTPUT):
+
     if use_color:
         message = message.replace("$RESET", RESET_SEQ).replace("$BOLD", BOLD_SEQ)
     else:
         message = message.replace("$RESET", "").replace("$BOLD", "")
     return message
 
-COLORS = {
-    'WARNING': YELLOW,
-    'INFO': WHITE,
-    'DEBUG': BLUE,
-    'CRITICAL': YELLOW,
-    'ERROR': RED
-}
 
 class ColoredFormatter(logging.Formatter):
-    def __init__(self, msg, use_color = True):
+
+    def __init__(self, msg, use_color=True):
         logging.Formatter.__init__(self, msg)
         self.use_color = use_color
+
 
     def format(self, record):
         levelname = record.levelname
@@ -38,13 +41,15 @@ class ColoredFormatter(logging.Formatter):
             record.levelname = levelname_color
         return logging.Formatter.format(self, record)
 
-# Custom logger class with multiple destinations
+
+
 class ColoredLogger(logging.Logger):
+    """Custom logger class with multiple destinations"""
     FORMAT = "[$BOLD%(name)-20s$RESET][%(levelname)-18s]  %(message)s ($BOLD%(filename)s$RESET:%(lineno)d)"
     COLOR_FORMAT = formatter_message(FORMAT, True)
+
     def __init__(self, name):
         logging.Logger.__init__(self, name, logging.DEBUG)                
-
         color_formatter = ColoredFormatter(self.COLOR_FORMAT)
 
         console = logging.StreamHandler()
@@ -54,9 +59,6 @@ class ColoredLogger(logging.Logger):
         return
 
 
-
 gsapiLogger = logging.getLogger("gsapi")
 logging.basicConfig(format="%(levelname)s:%(name)s : %(message)s")
-
-
 logging.setLoggerClass(ColoredLogger)

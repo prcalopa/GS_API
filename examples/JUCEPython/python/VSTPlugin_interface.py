@@ -3,31 +3,34 @@ import JUCEAPI
 from UIParameter import *
 
 
-
 class Dummy(object):
-	def __init__(self,value):
+
+	def __init__(self, value):
 		self.value = value
+
 	def fun(self):
 		print self.value
 
 
 dummy = Dummy(8)
-test4 = EnumParameter(choicesList={"lala":dummy.fun,"lolo":{"fesse":["loulou"]}},name="list")
+test4 = EnumParameter(choicesList={"lala":dummy.fun,
+                                   "lolo":{"fesse":["loulou"]}},
+                      name="list")
 
 
-def updateSlaveSlider(self,sliderToUpdate):
-	sliderToUpdate.value = self.value *8.2
+def updateSlaveSlider(self, sliderToUpdate):
+	sliderToUpdate.value = self.value * 8.2
 
-slaveSlider = NumParameter(0.0).setMinMax(0,100)
-masterSlider = NumParameter(0.0).setMinMax(0,10)
-masterSlider.setCallbackFunction(updateSlaveSlider,masterSlider,slaveSlider)
-
+slaveSlider = NumParameter(0.0).setMinMax(0, 100)
+masterSlider = NumParameter(0.0).setMinMax(0, 10)
+masterSlider.setCallbackFunction(updateSlaveSlider, masterSlider, slaveSlider)
 
 
 def createLayout():
-	area = Rectangle(0,0,100,100)
-	header = area.removeFromTop(40);
-	VSTPlugin.patternParameter.setBoundsRect(header);
+
+	area = Rectangle(0, 0, 100, 100)
+	header = area.removeFromTop(40)
+	VSTPlugin.patternParameter.setBoundsRect(header)
 	firstStack = area.removeFromLeft(30)
 	VSTPlugin.loopDuration.setBoundsRect(firstStack.removeFromTop(50))
 	VSTPlugin.numSteps.setBoundsRect(firstStack)
@@ -39,8 +42,8 @@ def createLayout():
 	VSTPlugin.eachBarIsNew.setBoundsRect(area.removeFromLeft(20))
 	VSTPlugin.generateNewP.setBoundsRect(area.removeFromLeft(20))
 
-
 	test4.setBoundsRect(area)
+
 
 def configureParams():
 	VSTPlugin.loopDuration.setMinMax(1,16).setCallbackFunction(VSTPlugin.generateStyleIfNeeded,forceParamUpdate=True)
@@ -48,6 +51,7 @@ def configureParams():
 	VSTPlugin.generateNewP.setCallbackFunction(VSTPlugin.generatePattern)
 	# add others ..
 	test4.onChange = updateList
+
 
 def getAllParameters():
 	""" gets caled when parameters are built in VST host
@@ -88,11 +92,8 @@ def updateList(param):
 		param.value()
 		
 
-	
-
-
 if __name__ == '__main__':
-	print 'running main'
+	print 'Running as main'
 	import sys
 	print sys.executable
 	VSTPlugin.setup()
@@ -101,7 +102,3 @@ if __name__ == '__main__':
 	VSTPlugin.generateNewP.addListener('tst',dummy.fun)
 	VSTPlugin.numSteps.value = 32
 	VSTPlugin.generateNewP.setValueFrom('tst', 1)
-
-	
-	
-

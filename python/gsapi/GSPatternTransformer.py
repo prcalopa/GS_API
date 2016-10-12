@@ -1,28 +1,34 @@
 from GSPattern import GSPattern
 
+
 class GSPatternTransformer(object):
-	""" Base class for defining a transform algorithm
+	""" Base class for defining a transform algorithm.
 
-	such class needs to provide following functions :
-		- configure(self, dict) : configure current transformer based on implementation specific parameters passed in dict argument
-		- TransformPattern(self,GSPattern) : return a transformed version of GSPattern
-
+	Such class needs to provide the following functions:
+		- configure(self, dict): configure the current transformer based on
+		  implementation specific parameters passed in dictionary argument.
+		- transform_pattern(self, GSPattern): return a transformed version
+		  of GSPattern
 	"""
+
+
 	def __init__(self):
 		self.type = "None"
 
-	def configure(self, paramDict):
-		"""configure current transformer based on implenmentation specific parameters passed in dict argument
+	def configure(self, param_dict):
+		"""Configure the current transformer based on implenmentation specific
+		parameters passed in dictionary argument.
 
 		Args:
-			paramDict : a dictionnary filed with configuration values
+			param_dict: a dictionnary filed with configuration values.
 		"""
-		raise NotImplementedError( "Should have implemented this" )
+		raise NotImplementedError("Martin should have implemented this ;-)")
 
-	def TransformPattern(self,pattern):
-		"""returns a transformed version of GSPattern
+
+	def transform_pattern(self, pattern):
+		"""Returns a transformed version of GSPattern.
 
 		Args:
-			pattern : the pattern to be transformed
+			pattern: the pattern to be transformed
 		"""
-		raise NotImplementedError( "Should have implemented this" )
+		raise NotImplementedError("Martin should have implemented this ;-)")

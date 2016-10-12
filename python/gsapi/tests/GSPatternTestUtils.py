@@ -36,7 +36,7 @@ class GSPatternTestUtils(unittest.TestCase):
 			for e in pattern.events:
 				if t in e.tags:
 					self.assertTrue(e.startTime>=lastTimeOff,"%s : (%f<%f) tag : %s"%(msg,e.startTime,lastTimeOff,t));
-					lastTimeOff = e.getEndTime()
+					lastTimeOff = e.get_end_time()
 
 	def checkPatternValid(self,pattern,checkForDoublons =True,checkOverlap = True,msg=None):
 		self.assertTrue(len(pattern.events)>0,msg)

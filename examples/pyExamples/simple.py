@@ -1,4 +1,5 @@
 import os,sys
+
 if __name__=='__main__':
 	sys.path.insert(1,os.path.abspath(os.path.join(__file__,os.pardir,os.pardir,os.pardir,"python")))
 
@@ -15,7 +16,7 @@ allPatternsSliced = []
 
 sizeOfSlice = 16
 for midiPattern in dataset.patterns:
-	for sliced in midiPattern.splitInEqualLengthPatterns(4):
+	for sliced in midiPattern.split_in_equal_length_patterns(4):
 		allPatternsSliced+=[sliced]
 
 markovStyle = GSMarkovStyle(order=3,numSteps=32,loopDuration=sizeOfSlice);
@@ -40,5 +41,5 @@ exit()
 
 for p in self.dataset.patterns:
 	allTags = p.getAllTags()
-	density = descriptor.getDescriptorForPattern(p);
+	density = descriptor.get_descriptor_for_pattern(p);
 

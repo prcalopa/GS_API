@@ -20,7 +20,7 @@ class MarkovPatternTest(GSPatternTestUtils):
 		self.patternList=[]
 
 		for p in self.dataSet.patterns:
-			self.patternList += p.splitInEqualLengthPatterns(loopDuration,False);
+			self.patternList += p.split_in_equal_length_patterns(loopDuration, False);
 		
 		for p in self.patternList :print p
 		self.markovChain = PatternMarkov(order=order,numSteps=numSteps,loopDuration=loopDuration);

@@ -1,36 +1,30 @@
 from gsapi import *
 
-crawledFolder = "../../python/test/midi/*.mid"
+
+desired_pattern_length = 4
+collection_folder = "../../python/test/midi/*.mid"
+custom_note_mapping = {"spam":[(35, '*'), 45],
+					   "kick":(36),
+					   "rimshot":37,
+					   "snare":38,
+					   "clap":39,
+					   "clave":40,
+					   "lowTom":41,
+					   "closedHH":42,
+					   "midTom":43,
+					   "shaker":44,
+					   "hiTom":45,
+					   "openHH":46,
+					   "lowConga":47,
+					   "hiConga":48,
+					   "cymbal":49,
+					   "conga":50,
+					   "cowbell":51
+					   # combination
+					   # "lowFrequencies" :[33,34,35,36,63]
+					   }
 
 
-customNoteMapping = {
-		"spam":[(35,'*'),45],
-		"Kick":(36),
-		"Rimshot":37,
-		"Snare":38,
-		"Clap":39,
-		"Clave":40,
-		"LowTom":41,
-		"ClosedHH":42,
-		"MidTom":43,
-		"Shake":44,
-		"HiTom":45,
-		"OpenHH":46,
-		"LowConga":47,
-		"HiConga":48,
-		"Cymbal":49,
-		"Conga":50,
-		"CowBell":51
-
-# combination
-	# "lowFrequencies" :[33,34,35,36,63]
-
-}
-
-
-desiredPatternLength = 4;
-
-patterns = GSIO.fromMidiCollection(crawledFolder,customNoteMapping,TagsFromTrackNameEvents=False)
-
-
-	
+patterns = GSIO.from_midi_collection(collection_folder,
+									 custom_note_mapping,
+									 tags_from_trackname_events=False)
